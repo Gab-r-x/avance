@@ -17,3 +17,12 @@ class User(db.Model):
     
     def is_subscription_active(self):
         return self.subscription_expiration and self.subscription_expiration > datetime.now()
+
+class UserQuestion(db.Model):
+    __tablename__ = 'user_questions'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    question_id = db.Column(db.String(24), nullable=False)  # MongoDB ObjectId
+    answered_at = db.Column(db.DateTime, nullable=False)
+    is_correct = db.Column(db.Boolean, nullable=False)

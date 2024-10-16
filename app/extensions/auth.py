@@ -1,35 +1,30 @@
-import jwt
-from flask import current_app, request, jsonify
-from datetime import datetime, timedelta, UTC, timezone
-from functools import wraps
+# extensions/auth.py
+from flask import jsonify
+from flask_jwt_extended import JWTManager
 
-def create_jwt_token(user_id):
-    expiration = datetime.now() + timedelta(hours=1)
-    token = jwt.encode({
-        'user_id': user_id,
-        'exp': expiration
-    }, current_app.config['SECRET_KEY'], algorithm='HS256')
-    return token
+jwt = JWTManager()
 
-def verify_jwt_token(token):
-    try:
-        data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])
-        return data['user_id']
-    except jwt.ExpiredSignatureError:
-        return None
-    except jwt.InvalidTokenError:
-        return None
+def init_app(app):
+    jwt.init_app(app)
 
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        token = request.headers.get('Authorization')
-        if token:
-            token = token.split(" ")[1]  # Remove 'Bearer' of token
-        if not token:
-            return jsonify({'message': 'Token is missing!'}), 401
-        user_id = verify_jwt_token(token)
-        if not user_id:
-            return jsonify({'message': 'Invalid token!'}), 401
-        return f(user_id, *args, **kwargs)
-    return decorated_function
+    # Define um comportamento para o que acontece se o token JWT expirar
+    @jwt.expired_token_loader
+    def expired_token_callback(jwt_header, jwt_payload):
+        return jsonify({"message": "O token de acesso expirou"}), 401
+
+    # Define um comportamento para o que acontece quando um token inválido é enviado
+    @jwt.invalid_token_loader
+    def invalid_token_callback(error):
+        return jsonify({"message": "Token inválido"}), 422
+
+    # Define o que acontece se o usuário não estiver logado
+    @jwt.unauthorized_loader
+    def unauthorized_callback(error):
+        return jsonify({"message": "Usuário não autenticado"}), 401
+
+    # Função para identificar o usuário no token JWT
+    @jwt.user_lookup_loader
+    def lookup_user(jwt_header, jwt_data):
+        from app.models.user import User
+        identity = jwt_data["sub"]
+        return User.query.filter_by(id=identity).one_or_none()

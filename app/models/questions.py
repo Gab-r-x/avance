@@ -1,5 +1,5 @@
 # models/question.py
-from extensions.database import db
+from avance.app.extensions.sql_database import db
 
 class Question(db.Model):
     __tablename__ = 'questions'

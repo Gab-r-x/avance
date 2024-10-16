@@ -1,5 +1,6 @@
 import click
-from app.extensions.database import db
+from app.extensions.sql_database import db
+from app.extensions.nosql_database import mongo
 from app.extensions.auth import create_jwt_token
 from app.models.questions import Question
 
@@ -7,6 +8,7 @@ from app.models.questions import Question
 def create_db():
     """Creates database"""
     db.create_all()
+    mongo.init_app()
 
 
 def drop_db():
