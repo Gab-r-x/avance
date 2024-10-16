@@ -6,5 +6,8 @@ SECRET_KEY = "jadkfbsdkjbfbh"
 PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
 EXTENSIONS = [
     "app.extensions.configuration:init_app"
+    "app.extensions.database:init_app"
+    "app.extensions.auth:init_app"
+
 ]
 
