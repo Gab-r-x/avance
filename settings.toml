@@ -13,4 +13,5 @@ EXTENSIONS = [
     "app.extensions.nosql_database:init_app",
     "app.extensions.commands:init_app",
     "app.extensions.auth:init_app"
+    "app.bluprints.api.v1:init_app"
 ]
