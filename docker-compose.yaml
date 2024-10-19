@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/enem
+      - POSTGRES_URI=postgresql://postgres:password@postgres:5432/avance
+    depends_on:
+      - postgres
+      - mongo
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: lambdaavance
+      POSTGRES_DB: avance
+    ports:
+      - "5432:5432"
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"

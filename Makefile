@@ -1,13 +1,22 @@
 install:
-	#install commands
+	# Instalar dependências
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
+
 format:
-	#format code
+	# Formatar o código com black
+	black .
+
 lint:
-	#flake8 or #pylint
+	# Analisar o código com flake8
+	flake8 .
+
 test:
-	#test
+	# Rodar testes com pytest
+	pytest
+
 deploy:
-	#deploy
-all: install lint test deploy
+	# Comandos para deploy (substitua conforme necessário)
+	echo "Deploying application..."
+
+all: install format lint test deploy
