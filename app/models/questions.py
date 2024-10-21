@@ -1,5 +1,5 @@
 # models/question.py
-from avance.app.extensions.sql_database import db
+from app.extensions.sql_database import db
 
 class Question(db.Model):
     __tablename__ = 'questions'
@@ -15,8 +15,6 @@ class Question(db.Model):
     correct_alternative = db.Column(db.String(1), nullable=False) # Letra da alternativa correta
     files = db.Column(db.JSON, default=[])                      # Arquivos (se aplicável)
 
-    # Relacionamento 1 -> N (1 questão tem várias alternativas)
-    alternatives = db.relationship('Alternative', backref='question', lazy=True)
-
+    
     def __repr__(self):
         return f"<Question {self.title} - {self.year}>"

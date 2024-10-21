@@ -10,15 +10,15 @@ from werkzeug.security import check_password_hash, generate_password_hash
 class SingupResource(Resource):
     def post(self):
         data = request.json
-        username = data.get('username')
+        email = data.get('email')
         password = data.get('password')
 
-        if User.query.filter_by(username=username).first():
+        if User.query.filter_by(email=email).first():
             return jsonify({"message": "Usuário já existe"}), 400
 
         # Criação do novo usuário
         hashed_password = generate_password_hash(password)
-        new_user = User(username=username, password=hashed_password)
+        new_user = User(email=email, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
 

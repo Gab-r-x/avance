@@ -1,14 +1,13 @@
 import click
 from app.extensions.sql_database import db
 from app.extensions.nosql_database import mongo
-from app.extensions.auth import create_jwt_token
 from app.models.questions import Question
 
 
 def create_db():
     """Creates database"""
     db.create_all()
-    mongo.init_app()
+    # mongo.init_app()
 
 
 def drop_db():
@@ -34,11 +33,3 @@ def init_app(app):
     # add multiple commands in a bulk
     for command in [create_db, drop_db, populate_db]:
         app.cli.add_command(app.cli.command()(command))
-
-    # add a single command
-    # @app.cli.command()
-    # @click.option('--username', '-u')
-    # @click.option('--password', '-p')
-    # def add_user(username, password):
-    #     """Adds a new user to the database"""
-    #     return create_user(username, password)

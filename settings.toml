@@ -1,17 +1,17 @@
 [default]
 DEBUG = false
-SQLALCHEMY_DATABASE_URI = 'postgresql://avance:avance6(&%@localhost/pgavance'
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres6&%@localhost/pgavance'
 MONGO_URI = 'mongodb://localhost:27017/mydb'
 TITLE = "app"
-SECRET_KEY = "\xf9\x85\x01\x87\xa0\x89\xe4"\x01\ns\xb5"
+SECRET_KEY = "xf9x85x01x87xa0x89xe4x01nsxb5"
 PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
-JWT_SECRET_KEY = 'jxf9\x85\x01\x87\xa0\x89\xe4"\x01\ns\xb5'
+JWT_SECRET_KEY = 'xf9x85x01x87xa0x89xe4x01nsxb5'
 
 EXTENSIONS = [
     "app.extensions.configuration:init_app",
     "app.extensions.sql_database:init_app",
     "app.extensions.nosql_database:init_app",
     "app.extensions.commands:init_app",
-    "app.extensions.auth:init_app"
-    "app.bluprints.api.v1:init_app"
+    "app.extensions.auth:init_app",
+    "app.blueprints.api.v1:init_app"
 ]
