@@ -9,7 +9,6 @@ class User(db.Model):
     password = db.Column(db.String(128), nullable=False)
     subscription_expiration = db.Column(db.DateTime, nullable=True)
     refresh_token = db.Column(db.String(255), nullable=True)
-
     fullname = db.Column(db.String(512), nullable = False)
     cpf = db.Column(db.String(11), nullable = False)
     birthday = db.Column(db.Date, nullable = True)
