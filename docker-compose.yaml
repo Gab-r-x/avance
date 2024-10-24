@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 
 services:
   web:
@@ -7,8 +7,8 @@ services:
       - "5000:5000"
     environment:
       - FLASK_ENV=development
-      - MONGO_URI=mongodb://mongo:27017/enem
-      - POSTGRES_URI=postgresql://postgres:postgres6&%@localhost/pgavance
+      - MONGO_URI=${MONGO_URI}
+      - POSTGRES_URI=${POSTGRES_URI}
     depends_on:
       - postgres
       - mongo
@@ -16,13 +16,21 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: lambdaavance
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: avance
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   mongo:
     image: mongo
     ports:
       - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  postgres_data:
+  mongo_data:
