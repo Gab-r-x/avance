@@ -10,6 +10,10 @@ class User(db.Model):
     subscription_expiration = db.Column(db.DateTime, nullable=True)
     refresh_token = db.Column(db.String(255), nullable=True)
 
+    fullname = db.Column(db.String(512), nullable = False)
+    cpf = db.Column(db.String(11), nullable = False)
+    birthday = db.Column(db.Date, nullable = True)
+            
     def set_password(self, password):
         self.password = generate_password_hash(password)
     
@@ -19,11 +23,12 @@ class User(db.Model):
     def is_subscription_active(self):
         return self.subscription_expiration and self.subscription_expiration > datetime.now()
 
-# class UserQuestion(db.Model):
-#     __tablename__ = 'user_questions'
+class UserQuestion(db.Model):
+    __tablename__ = 'user_questions'
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-#     question_id = db.Column(db.String(24), nullable=False)  # MongoDB ObjectId
-#     answered_at = db.Column(db.DateTime, nullable=False)
-#     is_correct = db.Column(db.Boolean, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    question_id = db.Column(db.Integer, nullable=False) 
+    answered_at = db.Column(db.DateTime, nullable=False)
+    is_correct = db.Column(db.Boolean, nullable=False)
+    mistake_class = db.Column(db.String(64), nullable=True, default=None)
