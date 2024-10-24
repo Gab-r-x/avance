@@ -1,6 +1,4 @@
 from flask import Flask, render_template
-import json
-
 from app.extensions import configuration
 
 
@@ -13,8 +11,9 @@ def minimal_app(**config):
 def create_app(**config):
     app = minimal_app(**config)
     configuration.load_extensions(app)
-    
-    @app.route('/')
+
+    @app.route("/")
     def index():
-        return render_template('index.html')
+        return render_template("index.html")
+
     return app

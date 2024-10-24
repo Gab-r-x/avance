@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 
 jwt = JWTManager()
 
+
 def init_app(app):
     jwt.init_app(app)
 
@@ -26,5 +27,6 @@ def init_app(app):
     @jwt.user_lookup_loader
     def lookup_user(jwt_header, jwt_data):
         from app.models.user import User
+
         identity = jwt_data["sub"]
         return User.query.filter_by(id=identity).one_or_none()

@@ -1,6 +1,5 @@
-import click
 from app.extensions.sql_database import db
-from app.extensions.nosql_database import mongo
+
 
 def create_db():
     """Creates database"""
@@ -16,6 +15,7 @@ def drop_db():
 def populate_db():
     """Populate db with sample data"""
     pass
+
 
 def init_app(app):
     # add multiple commands in a bulk

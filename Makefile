@@ -5,11 +5,11 @@ install:
 
 format:
 	# Formatar o código com black
-	black .
+	black app
 
 lint:
 	# Analisar o código com flake8
-	flake8 .
+	flake8 --extend-ignore E501 app
 
 test:
 	# Rodar testes com pytest
