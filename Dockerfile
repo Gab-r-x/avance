@@ -1,25 +1,25 @@
-# Usar a imagem oficial do Python
+# Use Python oficial image
 FROM python:3.12-slim
 
-# Definir o diretório de trabalho dentro do container
+# Define work directory in container
 WORKDIR /app
 
-# Copiar o arquivo de requisitos para o diretório de trabalho
+# Copy files to the work directory
 COPY requirements.txt .
 
-# Instalar as dependências
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar o código da aplicação para o diretório de trabalho
+# Copy the application code
 COPY . .
 
-# Expor a porta que a aplicação Flask usará
+# Expoxe flask connection port
 EXPOSE 5000:5000
 
-# Definir a variável de ambiente para rodar o Flask
+# Env variables from flask
 ENV FLASK_ENV=development
 ENV FLASK_DEBUG=True
 ENV FLASK_APP=app.app:create_app
 
-# Comando para iniciar a aplicação
+# Init flask aplication
 CMD ["flask", "run", "--host=0.0.0.0"]

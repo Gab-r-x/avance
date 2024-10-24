@@ -8,7 +8,7 @@ services:
     environment:
       - FLASK_ENV=development
       - MONGO_URI=mongodb://mongo:27017/enem
-      - POSTGRES_URI=postgresql://postgres:password@postgres:5432/avance
+      - POSTGRES_URI=postgresql://postgres:postgres6&%@localhost/pgavance
     depends_on:
       - postgres
       - mongo
