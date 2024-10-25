@@ -65,20 +65,20 @@ class SignupResource(Resource):
 class LoginResource(Resource):
     def post(self):
         data = request.json
-        username = data.get("username")
+        email = data.get("login")
         password = data.get("password")
 
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(email=email).first()
 
         if user and check_password_hash(user.password, password):
             access_token = create_access_token(identity=user.id)
             refresh_token = create_refresh_token(identity=user.id)
-            return (
+            return make_response(
                 jsonify({"access_token": access_token, "refresh_token": refresh_token}),
                 200,
             )
 
-        return jsonify({"message": "Credenciais inválidas"}), 401
+        return make_response(jsonify({"message": "Credenciais inválidas"}), 401)
 
 
 class RefreshResource(Resource):
