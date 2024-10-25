@@ -7,6 +7,8 @@ services:
       - "5000:5000"
     environment:
       - FLASK_ENV=development
+      - FLASK_DEBUG=True
+      - FLASK_APP=app.app:create_app
       - MONGO_URI=${MONGO_URI}
       - POSTGRES_URI=${POSTGRES_URI}
     depends_on:
