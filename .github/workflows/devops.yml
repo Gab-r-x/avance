@@ -19,5 +19,7 @@ jobs:
       run: |
         make lint
     - name: Test with pytest
+      env: 
+        SQLALCHEMY_DATABASE_URI: "sqlite:///:memory:"  # Define o banco de dados em memória para os testes
       run: |
         make test
