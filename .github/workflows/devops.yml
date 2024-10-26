@@ -1,25 +1,51 @@
 name: Python application test with Github Actions
-on: [push]
+
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd="pg_isready -U test_user"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python 3.12
       uses: actions/setup-python@v1
       with:
-        python-version: 3.12
+        python-version: '3.12'
+
     - name: Install dependencies
       run: |
         make install
+
     - name: Format code
       run: |
         make format
+
     - name: Lint with pylint
       run: |
         make lint
+
     - name: Test with pytest
-      env: 
-        SQLALCHEMY_DATABASE_URI: "sqlite:///:memory:"  # Define o banco de dados em memória para os testes
+      env:
+        SQLALCHEMY_DATABASE_URI: "postgresql://test_user:test_password@localhost:5432/test_db"
       run: |
         make test
