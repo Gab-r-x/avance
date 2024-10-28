@@ -1,7 +1,3 @@
-Here's an improved version of your README with clearer formatting and explanations.
-
----
-
 # Avance
 
 Backend REST API for the Avance platform, designed to help students practice and solve ENEM questions efficiently.
