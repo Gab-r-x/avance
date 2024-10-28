@@ -1,27 +1,22 @@
 # Use Python oficial image
 FROM python:3.12-slim
 
-# Define work directory in container
+# Set our working directory inside the container to /app
 WORKDIR /app
 
-# Copy requirements file to the work directory
-COPY requirements.txt .
+# Copy the list of required Python packages from our project to the container
+COPY requirements.txt ./
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Install all the Python packages listed in requirements.txt
+# Additionally, install the python-dotenv package to manage environment variables
+RUN pip install -r requirements.txt && pip install python-dotenv
 
-# Copy the application code
+# Copy all of our project's files into the /app directory in the container
 COPY . .
 
-# Expose Flask connection port
-EXPOSE 5000
+# Expose port 3000 to allow external connections
+EXPOSE 3000
 
-# Env variables from Flask
-ENV FLASK_ENV=development \
-    FLASK_DEBUG=True \
-    FLASK_APP=app.app:create_app
-
-# Init Flask application
-ENTRYPOINT ["flask"]
-CMD ["run", "--host=0.0.0.0"]
+# Define the default command to run when the container starts
+# Start our Flask application and make it accessible from all network interfaces on port 3000
+CMD ["flask", "run", "--host=0.0.0.0", "--port=3000"]

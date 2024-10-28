@@ -1,6 +1,5 @@
 [default]
 DEBUG = false
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres5432@postgres:5432/pgavance'
 MONGO_URI = 'mongodb://localhost:27017/mydb'
 TITLE = "app"
 PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
