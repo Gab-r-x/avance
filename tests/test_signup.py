@@ -7,13 +7,6 @@ from app.extensions.sql_database import db
 @pytest.fixture
 def app():
     app = create_app()
-    app.config.update(
-        {
-            "TESTING": True,
-            "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",  # Banco de dados em memória para testes
-            "JWT_SECRET_KEY": "test-secret-key",
-        }
-    )
 
     with app.app_context():
         db.create_all()
