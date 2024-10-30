@@ -14,3 +14,5 @@ EXTENSIONS = [
     "app.extensions.auth:init_app",
     "app.blueprints.api.v1:init_app"
 ]
+[test]
+DEBUG = true
