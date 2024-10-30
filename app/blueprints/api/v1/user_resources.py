@@ -27,18 +27,17 @@ class SignupResource(Resource):
 
         # Criação de um novo usuário
         hashed_password = generate_password_hash(password)
-        
+
         # Gera tokens de acesso e refresh
         access_token = create_access_token(identity=email)
         refresh_token = create_refresh_token(identity=email)
-
 
         new_user = User(
             email=email,
             password=hashed_password,
             fullname=fullname,
             cpf=cpf,
-            refresh_token=refresh_token
+            refresh_token=refresh_token,
         )
 
         # Adiciona o novo usuário ao banco de dados
