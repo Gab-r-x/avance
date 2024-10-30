@@ -17,3 +17,4 @@ def load_extensions(app):
 
 def init_app(app, **config):
     FlaskDynaconf(app, **config)
+    app.config.update(config)
