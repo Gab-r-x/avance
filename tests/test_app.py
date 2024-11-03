@@ -3,7 +3,7 @@ def test_app_is_created(app):
     
 def test_index_route_protected(client):
     response = client.get('/')
-    assert response.status_code == 201
+    assert response.status_code == 401
 
 def test_error_404(client):
     response = client.get('/asdf')
