@@ -18,5 +18,5 @@ def load_extensions(app):
 
 
 def init_app(app, **config):
-    FlaskDynaconf(app, **config)
+    FlaskDynaconf(app, settings_files=["settings.toml", ".secrets.toml"], **config)
     app.config.update(config)

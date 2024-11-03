@@ -4,8 +4,6 @@ MONGO_URI = 'mongodb://localhost:27017/mydb'
 DB_URL='postgresql://postgres:postgres@flask_db:5432/postgres'
 TITLE = "app"
 PASSWORD_SCHEMES = ['pbkdf2_sha512', 'md5_crypt']
-JWT_SECRET_KEY = 'xf9x85x01x87xa0x89xe4x01nsxb5'
-
 EXTENSIONS = [
     "app.extensions.configuration:init_app",
     "app.extensions.sql_database:init_app",
