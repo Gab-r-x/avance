@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_jwt_extended import jwt_required
 from app.extensions import configuration
 from dotenv import load_dotenv
 
@@ -15,8 +16,9 @@ def minimal_app(**config):
 def create_app(**config):
     app = minimal_app(**config)
     configuration.load_extensions(app)
-
+    
     @app.route("/")
+    @jwt_required()
     def index():
         return render_template("index.html")
 
